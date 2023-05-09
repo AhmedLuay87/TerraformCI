@@ -10,11 +10,11 @@ terraform {
   cloud {
     organization = "aluay87_org"
     workspaces {
-      name = "aluay87-1-WS"
+      name = "TerraformCI"
     }
   }
 }
-variable "ARM_CLIENT_ID" {
+variable "ARM_CLIENT_ID"  {
   type = string
 }
 variable "ARM_CLIENT_SECRET" {
@@ -41,7 +41,7 @@ resource "azurerm_resource_group" "rg" {
 
 # Create resource type storage account
 resource "azurerm_storage_account" "storage" {
-  name                     = "tfsatest509684590685435"
+  name                     = "tfsatest5096845906854351234"
   location                 = "west europe"
   resource_group_name      = azurerm_resource_group.rg.name
   account_tier             = "Standard"
