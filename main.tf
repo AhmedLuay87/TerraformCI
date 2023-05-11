@@ -30,7 +30,7 @@ terraform {
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   features {}
-  skip_provider_registration = true
+ # skip_provider_registration = true
 }
 
 
@@ -41,7 +41,7 @@ resource "azurerm_resource_group" "rg" {
 
 # Create resource type storage account
 resource "azurerm_storage_account" "storage" {
-  name                     = "tfsatest5096844tf"
+  name                     = "tfsatest5096844tf123"
   location                 = "west europe"
   resource_group_name      = azurerm_resource_group.rg.name
   account_tier             = "Standard"
