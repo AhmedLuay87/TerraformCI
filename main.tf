@@ -33,6 +33,6 @@ resource "azurerm_storage_account" "securestorage" {
   location                      = var.location
   account_tier                  = "Standard"
   account_replication_type      = var.environment == "Production" ? "GRS" : "LRS"
-  public_network_access_enabled = false
+  # public_network_access_enabled = false
   tags                          = local.tags
 }
