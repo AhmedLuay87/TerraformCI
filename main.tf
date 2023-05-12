@@ -1,5 +1,3 @@
-# We strongly recommend using the required_providers block to set the
-# Azure Provider source and version being used
 terraform {
   required_providers {
     azurerm = {
@@ -10,40 +8,31 @@ terraform {
   cloud {
     organization = "aluay87_org"
     workspaces {
-      name = "TerraformCI"
+      name = "aluay87-1-WS"
     }
   }
 }
-# variable "ARM_CLIENT_ID"  {
-#   type = string
-# }
-# variable "ARM_CLIENT_SECRET" {
-#   type = string
-# }
-# variable "ARM_SUBSCRIPTION_ID" {
-#   type = string
-# }
-# variable "ARM_TENANT_ID" {
-#   type = string
-# }
 
-# Configure the Microsoft Azure Provider
-provider "azurerm" {
-  features {}
- # skip_provider_registration = true
+
+locals {
+  tags = {
+    "environment" = var.environment
+  }
 }
 
-
-resource "azurerm_resource_group" "rg" {
-  name     = "Ahmed-Demos"
-  location = "East US"
-}
+# # Create a resource group
+# resource "azurerm_resource_group" "rg1" {
+#   name     = "Ahmed-Demos"
+#   location = "East US"
+#}
 
 # Create resource type storage account
-resource "azurerm_storage_account" "storage" {
-  name                     = "tfsatest5096844tf1212"
-  location                 = "west europe"
-  resource_group_name      = azurerm_resource_group.rg.name
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+resource "azurerm_storage_account" "securestorage" {
+  resource_group_name           = var.resource_group_name
+  name                          = var.name
+  location                      = var.location
+  account_tier                  = "Standard"
+  account_replication_type      = var.environment == "Production" ? "GRS" : "LRS"
+  public_network_access_enabled = false
+  tags                          = local.tags
 }
